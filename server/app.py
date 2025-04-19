@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, Response
 from flask_cors import CORS
-from .Directgpt.agent import Agent
+from Directgpt.agent import getReccs
 
 app = Flask(__name__)
 
@@ -11,10 +11,10 @@ def ask_model():
         #return jsonify({"error": "Missing 'data' query parameter"}), 400
     try:
         input_data ={"Age":18, "Rating": "G", "sensors":"strobing lights","genere": "action"}
-        response = Agent.getReccs(input_data)
+        response = getReccs(input_data)
         if not response:
             return jsonify({"error": "No response from model"}), 500
-        return jsonify({"response": response.text})
+        return jsonify({"response": response}),200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 

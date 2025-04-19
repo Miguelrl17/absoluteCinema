@@ -11,7 +11,7 @@ client = genai.Client(api_key= GEMINI)
 global reccPrompt
 
 
-with open("server/Directgpt/reccPrompt.txt", "r") as file:
+with open(r"/home/zepol/projects/CitrusHack2025/absoluteCinema/server/Directgpt/reccPrompt.txt", "r") as file:
     prompt = file.read()
 
 
