@@ -4,7 +4,7 @@ function App() {
   return (
     <div className="landing-container">
       <header className="hero">
-        <h1>Trigger-Free Movies</h1>
+        <h1>SafeCinema</h1>
         <p>Discover movies curated for sensitive viewers — free from violence, abuse, and other triggering content.</p>
       </header>
 
