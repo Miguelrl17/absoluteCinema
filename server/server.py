@@ -1,3 +1,3 @@
 from flask import Flask, request, jsonify, Response
-import openai
+from flask_cors import CORS
 
