@@ -16,7 +16,6 @@ with open(r"C:\Users\migue\OneDrive\Desktop\absoluteCinema\server\Directgpt\recc
 
 
 def getReccs(json):
-    print(prompt)
     response = client.models.generate_content(
         model="gemini-2.0-flash", contents= f"{prompt} {json}")
     return response.text
