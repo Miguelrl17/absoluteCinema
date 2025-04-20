@@ -4,7 +4,7 @@
 body {
   margin: 0;
   font-family: 'Gatsby', Roboto;
-  background-image: url('assets/backgrounds.png');
+  background-image: url('assets/background.png');
   color: #fdeded; /* Light gray for readability */
   line-height: 1.6; /* Improve readability */
   display: flex;
