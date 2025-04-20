@@ -1,2 +1,2 @@
-Hello I'm a [age] looking to watch a rated [rating] film without [sensor] and let it be a [genre] film. 
-Please return a list of the top 5 movies in a json format. Fill in the blanks with the following json
+I am interested in finding a movie suitable for someone who is [age] years old. I would prefer a film with a [rating] rating within the [genre] category. I am looking for recommendations that generally avoid [mention a neutral category related to your 'sensor' list, e.g., 'content some viewers might find unsuitable']. Based on these preferences, could you please provide a JSON list of the top 5 recommended movies?
+Plesae return only the json of the best movies possibile

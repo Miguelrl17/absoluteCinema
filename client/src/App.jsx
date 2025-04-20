@@ -32,27 +32,24 @@ function App() {
       trigger_list: triggerList,
     };
 
-    // Convert to JSON string
-    const jsonString = JSON.stringify(dataToSave, null, 2);
-
-    // Create a Blob with the JSON data
-    const blob = new Blob([jsonString], { type: 'application/json' });
-
     try {
-      const response = await fetch('http://localhost:5000/reccs', {
-        method: 'GET',
+      // Changed to POST request since we're sending data
+      const response = await fetch('http://127.0.0.1:5000/movieRecs', {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(dataToSave),
       });
-  
       if (!response.ok) {
-        throw new Error('Failed to send preferences');
+        throw new Error(`Failed to send preferences: ${response.status}`);
       }
   
       const result = await response.json();
       console.log('Server response:', result);
+      
+      // Display the response in the output area
+      setOutput(JSON.stringify(result, null, 2));
   
       // Optional: Download response as JSON
       const blob = new Blob([JSON.stringify(result, null, 2)], { type: 'application/json' });
@@ -65,8 +62,9 @@ function App() {
   
     } catch (error) {
       console.error('Error sending preferences:', error);
-    }}
-    // Display the JSON string in the output area
+      setOutput(`Error: ${error.message}`);
+    }
+  };
 
   return (
     <div className="landing-container">
