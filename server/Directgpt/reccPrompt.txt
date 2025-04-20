@@ -1,2 +1,12 @@
-I am interested in finding a movie suitable for someone who is [age] years old. I would prefer a film with a [rating] rating within the [genre] category. I am looking for recommendations that generally avoid [mention a neutral category related to your 'sensor' list, e.g., 'content some viewers might find unsuitable']. Based on these preferences, could you please provide a JSON list of the top 5 recommended movies?
+I am interested in finding a movie suitable for someone who is [age] years old. I would prefer a film with a [rating] rating within the [genre] category. I am looking for recommendations that generally avoid [mention a neutral category related to your 'sensor' list, e.g., 'content some viewers might find unsuitable']. Based on these preferences, could you please provide a JSON list of the top 6 recommended movies?
 Plesae return only the json of the best movies possibile
+
+FOLLOW THE FOLLOWING JSON
+
+  {
+    "title": "Movie Title 1",
+    "director": "Director Name 1",
+    "year": 2024,
+    "poster": "URL_to_poster1",
+    "rating": 7.8
+  }

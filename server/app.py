@@ -2,6 +2,7 @@ from typing import Literal
 from flask import Flask, request, jsonify, Response
 from flask_cors import CORS
 from Directgpt.agent import getReccs
+import requests
 
 app = Flask(__name__)
 CORS(app, resources={r"/movieRecs": {"origins": "http://localhost:5173"}})
@@ -22,6 +23,9 @@ def ask_model() -> tuple[Response, Literal[400]] | tuple[Response, Literal[500]]
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@app.route('/poster', methods=['POST'])
+def getPoster():
+    input_data = request.get_json()
 # Run the server
 if __name__ == '__main__':
     app.run(0)
