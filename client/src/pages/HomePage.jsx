@@ -22,35 +22,46 @@ import SearchIcon from '@mui/icons-material/Search';
 import LocalMoviesIcon from '@mui/icons-material/LocalMovies';
 import StarIcon from '@mui/icons-material/Star';
 
-// Create a custom theme inspired by Netflix/IMDb
+// Eisenhower High School colors
+// Primary: Kelly Green (#4CBB17)
+// Secondary: Dark Green (#2E7D32)
+// Accent: Gold (#FFD700)
+
 const theme = createTheme({
   palette: {
-    mode: 'dark',
+    mode: 'light',
     primary: {
-      main: '#E50914', // Netflix red
+      main: '#4CBB17', // Kelly Green (Eisenhower HS primary color)
+      light: '#6DD439',
+      dark: '#2E7D32', // Dark Green (Eisenhower HS secondary color)
     },
     secondary: {
-      main: '#F5C518', // IMDb yellow
+      main: '#FFD700', // Gold (Eisenhower HS accent color)
+      light: '#FFDF4D',
+      dark: '#DAB700',
     },
     background: {
-      default: '#141414', // Netflix background
-      paper: '#1F1F1F',  // Slightly lighter for cards
+      default: '#FFFFFF', // White
+      paper: '#F5F5F5',   // Light grey for contrast
     },
     text: {
-      primary: '#FFFFFF',
-      secondary: '#B3B3B3',
+      primary: '#333333', // Dark grey for high contrast
+      secondary: '#2E7D32', // Dark Green for secondary text
     },
   },
   typography: {
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
     h1: {
       fontWeight: 700,
+      color: '#2E7D32', // Dark Green
     },
     h2: {
       fontWeight: 600,
+      color: '#2E7D32', // Dark Green
     },
     h3: {
       fontWeight: 600,
+      color: '#2E7D32', // Dark Green
     },
     button: {
       textTransform: 'none',
@@ -61,38 +72,36 @@ const theme = createTheme({
     MuiCssBaseline: {
       styleOverrides: {
         body: {
-          backgroundColor: '#141414',
-          backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url("assets/film-texture.png")',
-          backgroundSize: 'cover',
-          backgroundAttachment: 'fixed',
+          backgroundColor: '#FFFFFF',
+          backgroundImage: 'none',
         },
       },
     },
     MuiButton: {
       styleOverrides: {
         containedPrimary: {
-          backgroundColor: '#E50914',
+          backgroundColor: '#4CBB17', // Kelly Green
           '&:hover': {
-            backgroundColor: '#C70812',
+            backgroundColor: '#2E7D32', // Dark Green
           },
         },
         containedSecondary: {
-          backgroundColor: '#F5C518',
-          color: '#000000',
+          backgroundColor: '#FFD700', // Gold
+          color: '#2E7D32', // Dark Green text for contrast
           '&:hover': {
-            backgroundColor: '#E5B617',
+            backgroundColor: '#DAB700', // Darker Gold
           },
         },
-      }
+      },
     },
     MuiCard: {
       styleOverrides: {
         root: {
-          backgroundColor: '#1F1F1F',
+          backgroundColor: '#F5F5F5',
           transition: 'transform 0.3s ease, box-shadow 0.3s ease',
           '&:hover': {
             transform: 'scale(1.03)',
-            boxShadow: '0 8px 16px rgba(0,0,0,0.3)',
+            boxShadow: '0 8px 16px rgba(46, 125, 50, 0.3)', // Softened Dark Green shadow
           },
         },
       },
@@ -100,7 +109,7 @@ const theme = createTheme({
     MuiChip: {
       styleOverrides: {
         root: {
-          backgroundColor: alpha('#E50914', 0.2),
+          backgroundColor: '#4CBB17', // Kelly Green
           color: '#FFFFFF',
           fontWeight: 500,
         },
@@ -109,18 +118,18 @@ const theme = createTheme({
   },
 });
 
-// Netflix-style header
-const NetflixHeader = styled(Box)(({ theme }) => ({
+// Header with Eisenhower HS style
+const Header = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   padding: theme.spacing(2, 0),
   marginBottom: theme.spacing(4),
 }));
 
-const NetflixLogo = styled(Box)(({ theme }) => ({
+const Logo = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
-  color: theme.palette.primary.main,
+  color: theme.palette.primary.dark,
   fontWeight: 700,
   fontSize: '2rem',
 }));
@@ -134,10 +143,11 @@ const HeroSection = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.85)), url("assets/cinema-hero.jpg")',
+  backgroundColor: alpha(theme.palette.primary.main, 0.05),
   backgroundSize: 'cover',
   backgroundPosition: 'center',
   borderRadius: theme.shape.borderRadius,
+  borderLeft: `6px solid ${theme.palette.primary.main}`,
   overflow: 'hidden',
 }));
 
@@ -148,7 +158,7 @@ const HeroContent = styled(Box)(({ theme }) => ({
   zIndex: 1,
 }));
 
-// Section titles with IMDb style
+
 const SectionTitle = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
@@ -159,19 +169,19 @@ const SectionTitle = styled(Box)(({ theme }) => ({
   '&::after': {
     content: '""',
     flexGrow: 1,
-    height: '1px',
-    backgroundColor: alpha(theme.palette.common.white, 0.2),
+    height: '2px',
+    backgroundColor: alpha(theme.palette.primary.dark, 0.3),
     marginLeft: theme.spacing(2),
   },
 }));
 
-// Netflix-style cards
 const MovieCard = styled(Card)(({ theme }) => ({
   height: '100%',
   display: 'flex',
   flexDirection: 'column',
   position: 'relative',
   overflow: 'hidden',
+  border: `1px solid ${alpha(theme.palette.primary.dark, 0.2)}`,
 }));
 
 const RatingBadge = styled(Box)(({ theme }) => ({
@@ -179,7 +189,7 @@ const RatingBadge = styled(Box)(({ theme }) => ({
   top: 10,
   right: 10,
   backgroundColor: theme.palette.secondary.main,
-  color: '#000000',
+  color: theme.palette.primary.dark,
   padding: theme.spacing(0.5, 1),
   borderRadius: theme.shape.borderRadius,
   fontWeight: 700,
@@ -187,36 +197,40 @@ const RatingBadge = styled(Box)(({ theme }) => ({
   alignItems: 'center',
 }));
 
-// Form section with Netflix styling
-const FormSection = styled(Box)(({ theme }) => ({
+
+const FormSection = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(4),
-  backgroundColor: alpha('#000000', 0.7),
   borderRadius: theme.shape.borderRadius,
   marginBottom: theme.spacing(6),
+  border: `1px solid ${alpha(theme.palette.primary.dark, 0.2)}`,
+  boxShadow: `0 4px 20px ${alpha(theme.palette.primary.dark, 0.1)}`,
 }));
 
-// Custom styled TextField with Netflix feel
-const NetflixTextField = styled(TextField)(({ theme }) => ({
+
+const CustomTextField = styled(TextField)(({ theme }) => ({
   '& .MuiOutlinedInput-root': {
-    backgroundColor: alpha('#000000', 0.5),
     '& fieldset': {
-      borderColor: alpha('#FFFFFF', 0.3),
+      borderColor: alpha(theme.palette.primary.dark, 0.3),
     },
     '&:hover fieldset': {
-      borderColor: alpha('#FFFFFF', 0.5),
+      borderColor: alpha(theme.palette.primary.dark, 0.5),
     },
     '&.Mui-focused fieldset': {
       borderColor: theme.palette.primary.main,
     },
   },
+  '& .MuiInputLabel-root': {
+    color: theme.palette.text.secondary,
+  },
 }));
 
-// Netflix-style footer
-const NetflixFooter = styled(Box)(({ theme }) => ({
+// Footer with Eisenhower HS styling
+const Footer = styled(Box)(({ theme }) => ({
   textAlign: 'center',
   padding: theme.spacing(6, 0),
   marginTop: theme.spacing(6),
-  borderTop: `1px solid ${alpha(theme.palette.common.white, 0.1)}`,
+  borderTop: `2px solid ${alpha(theme.palette.primary.dark, 0.2)}`,
+  backgroundColor: alpha(theme.palette.primary.main, 0.05),
 }));
 
 export default function Home() {
@@ -277,7 +291,7 @@ export default function Home() {
 
   // Sample featured movies (placeholders)
   const featuredMovies = [
-    { title: "The Silent Path", rating: "8.5", genre: "Drama", img: "../assets/silentPath.jpg" },
+    { title: "The Silent Path", rating: "8.5", genre: "Drama", img: "/api/placeholder/300/450" },
     { title: "Bright Horizons", rating: "9.2", genre: "Family", img: "/api/placeholder/300/450" },
     { title: "Cloud Atlas", rating: "7.8", genre: "Adventure", img: "/api/placeholder/300/450" },
     { title: "Gentle Journey", rating: "8.1", genre: "Comedy", img: "/api/placeholder/300/450" }
@@ -287,19 +301,19 @@ export default function Home() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Container maxWidth="xl">
-        <NetflixHeader>
-          <NetflixLogo>
+        <Header>
+          <Logo>
             <LocalMoviesIcon sx={{ mr: 1, fontSize: 30 }} />
             SafeCinema
-          </NetflixLogo>
-        </NetflixHeader>
+          </Logo>
+        </Header>
 
         <HeroSection>
           <HeroContent>
             <Typography variant="h1" gutterBottom sx={{ fontSize: { xs: '2.5rem', md: '3.5rem' }, fontWeight: 900 }}>
               Safe Movie Recommendations
             </Typography>
-            <Typography variant="h5" sx={{ mb: 4, color: '#B3B3B3' }}>
+            <Typography variant="h5" sx={{ mb: 4, color: theme.palette.primary.dark }}>
               Discover movies curated for sensitive viewers — free from violence, abuse, and other triggering content.
             </Typography>
             <Button 
@@ -322,7 +336,7 @@ export default function Home() {
             <Chip 
               label="Safe Watching" 
               size="small" 
-              sx={{ ml: 2, backgroundColor: alpha(theme.palette.secondary.main, 0.2), color: theme.palette.secondary.main }}
+              sx={{ ml: 2, backgroundColor: alpha(theme.palette.secondary.main, 0.2), color: theme.palette.primary.dark }}
             />
           </SectionTitle>
           
@@ -338,7 +352,7 @@ export default function Home() {
                     </RatingBadge>
                   </Box>
                   <CardContent>
-                    <Typography variant="h6" component="h3" gutterBottom sx={{ fontWeight: 700 }}>
+                    <Typography variant="h6" component="h3" gutterBottom sx={{ fontWeight: 700, color: theme.palette.primary.dark }}>
                       {movie.title}
                     </Typography>
                     <Typography variant="body2" color="textSecondary">
@@ -361,7 +375,7 @@ export default function Home() {
           <form onSubmit={handleSubmit}>
             <Grid container spacing={3}>
               <Grid item xs={12} sm={6}>
-                <NetflixTextField
+                <CustomTextField
                   fullWidth
                   label="Age"
                   id="age"
@@ -379,7 +393,7 @@ export default function Home() {
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <NetflixTextField
+                <CustomTextField
                   fullWidth
                   label="Genre"
                   id="genre"
@@ -397,7 +411,7 @@ export default function Home() {
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <NetflixTextField
+                <CustomTextField
                   fullWidth
                   label="Rating"
                   id="rating"
@@ -415,7 +429,7 @@ export default function Home() {
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <NetflixTextField
+                <CustomTextField
                   fullWidth
                   label="Triggers to Avoid (comma separated)"
                   id="triggers"
@@ -453,17 +467,24 @@ export default function Home() {
           </form>
           
           {output && (
-            <Box sx={{ mt: 4, p: 2, backgroundColor: alpha('#000000', 0.5), borderRadius: 1, overflow: 'auto' }}>
-              <pre id="output" style={{ margin: 0, color: '#FFFFFF', fontFamily: 'monospace' }}>{output}</pre>
+            <Box sx={{ 
+              mt: 4, 
+              p: 2, 
+              backgroundColor: alpha(theme.palette.primary.main, 0.05), 
+              borderRadius: 1, 
+              overflow: 'auto',
+              border: `1px solid ${alpha(theme.palette.primary.dark, 0.2)}`
+            }}>
+              <pre id="output" style={{ margin: 0, color: theme.palette.text.primary, fontFamily: 'monospace' }}>{output}</pre>
             </Box>
           )}
         </FormSection>
 
-        <NetflixFooter>
-          <Typography variant="body2" color="textSecondary">
+        <Footer>
+          <Typography variant="body2" sx={{ color: theme.palette.text.secondary }}>
             &copy; 2025 SafeCinema. All rights reserved.
           </Typography>
-        </NetflixFooter>
+        </Footer>
       </Container>
     </ThemeProvider>
   );
