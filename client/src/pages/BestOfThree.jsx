@@ -1,5 +1,73 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { 
+  Box, 
+  Container, 
+  Typography, 
+  Card, 
+  CardContent, 
+  CardMedia, 
+  Grid, 
+  CircularProgress 
+} from '@mui/material';
+import { styled } from '@mui/material/styles';
+
+// Movie-themed background
+const BackgroundContainer = styled(Box)(({ theme }) => ({
+  backgroundImage: `
+    linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')
+  `,
+  backgroundSize: 'cover',
+  backgroundPosition: 'center',
+  backgroundAttachment: 'fixed',
+  minHeight: '100vh',
+  paddingTop: theme.spacing(8),
+  paddingBottom: theme.spacing(8),
+}));
+
+const StyledCard = styled(Card)(({ theme }) => ({
+  height: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
+  backgroundColor: 'rgba(255, 255, 255, 0.9)',
+  backdropFilter: 'blur(10px)',
+  '&:hover': {
+    transform: 'scale(1.05)',
+    boxShadow: '0 8px 40px rgba(0,0,0,0.12)',
+  },
+}));
+
+const MovieCard = ({ movie }) => {
+  return (
+    <StyledCard>
+      <CardMedia
+        component="img"
+        height="300"
+        image={movie.poster}
+        alt={`${movie.title} Poster`}
+        style={{backgroundColor: "red"}}
+      />
+      <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+        <Typography gutterBottom variant="h5" component="div" color="text.primary">
+          {movie.title}
+        </Typography>
+        <Box className = "bg-gray">
+          <Typography variant="body2" color="text.secondary">
+            Director: {movie.director}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Year: {movie.year}
+          </Typography>
+          <Typography variant="body1" color="primary" sx={{ mt: 1, fontWeight: 'medium' }}>
+            Rating: {movie.rating}
+          </Typography>
+        </Box>
+      </CardContent>
+    </StyledCard>
+  );
+};
 
 export default function BestOfThree() {
   const location = useLocation();
@@ -8,12 +76,9 @@ export default function BestOfThree() {
   useEffect(() => {
     if (location.state && location.state.response) {
       const responseString = location.state.response;
-
-      // Remove the ```json\n and \n``` wrappers
       const cleanString = responseString.substring(responseString.indexOf('['), responseString.lastIndexOf(']') + 1);
 
       try {
-        // Attempt to parse the cleaned JSON string
         const parsedData = JSON.parse(cleanString);
         setReceivedData(parsedData);
         console.log('Parsed data in BestOfThree:', parsedData);
@@ -26,44 +91,30 @@ export default function BestOfThree() {
     }
   }, [location.state]);
 
-  if (!receivedData) {
-    return (
-      <div className="bg-gray-100 p-8">
-        <div className="container mx-auto">
-          <h1 className="text-3xl font-semibold text-center text-gray-800 mb-6">Loading Movie Data...</h1>
-        </div>
-      </div>
-    );
-  }
-
-  const MovieCard = ({ movie }) => {
-    return (
-      <div className="bg-white rounded-lg shadow-md overflow-hidden flex flex-col transition-transform hover:scale-105">
-        <img src={movie.poster} alt={`${movie.title} Poster`} className="w-full h-auto object-cover rounded-t-lg" />
-        <div className="p-4 flex-grow flex flex-col justify-between">
-          <h2 className="text-xl font-semibold text-gray-800 mb-2">{movie.title}</h2>
-          <p className="text-gray-600 mb-1">Director: {movie.director}</p>
-          <p className="text-gray-600 mb-2">Year: {movie.year}</p>
-          <p className="text-gray-700 font-medium">Rating: {movie.rating}</p>
-        </div>
-      </div>
-    );
-  };
-
   return (
-    <div className="bg-gray-100 p-8">
-      <div className="container mx-auto">
-        <h1 className="text-3xl font-semibold text-center text-gray-800 mb-6">Top Movies</h1>
-        {Array.isArray(receivedData) && receivedData.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <BackgroundContainer>
+      <Container maxWidth="lg">
+        <Typography variant="h3" align="center" color="common.white" gutterBottom sx={{ textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }}>
+          Top Movies
+        </Typography>
+        {receivedData === null ? (
+          <Box sx={{ display: 'flex', justifyContent: 'center', my: 4 }}>
+            <CircularProgress sx={{ color: 'common.white' }} />
+          </Box>
+        ) : Array.isArray(receivedData) && receivedData.length > 0 ? (
+          <Grid container spacing={4}>
             {receivedData.map((movie, index) => (
-              <MovieCard key={index} movie={movie} />
+              <Grid item key={index} xs={12} sm={6} md={4}>
+                <MovieCard movie={movie} />
+              </Grid>
             ))}
-          </div>
+          </Grid>
         ) : (
-          <p className="text-center text-gray-600">No movie data received or data is empty.</p>
+          <Typography variant="body1" align="center" color="common.white">
+            No movie data received or data is empty.
+          </Typography>
         )}
-      </div>
-    </div>
+      </Container>
+    </BackgroundContainer>
   );
 }
