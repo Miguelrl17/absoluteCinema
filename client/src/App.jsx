@@ -19,7 +19,7 @@ function App() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Process the trigger list into an array
@@ -38,17 +38,35 @@ function App() {
     // Create a Blob with the JSON data
     const blob = new Blob([jsonString], { type: 'application/json' });
 
-    // Create a download link
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'preferences.json'; // This will be the filename
-    a.click();
-    URL.revokeObjectURL(url);
-
-    // Optional: Set formatted output on the page
-    setOutput(jsonString);
-  };
+    try {
+      const response = await fetch('http://localhost:5000/reccs', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(dataToSave),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to send preferences');
+      }
+  
+      const result = await response.json();
+      console.log('Server response:', result);
+  
+      // Optional: Download response as JSON
+      const blob = new Blob([JSON.stringify(result, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'server_response.json';
+      a.click();
+      URL.revokeObjectURL(url);
+  
+    } catch (error) {
+      console.error('Error sending preferences:', error);
+    }}
+    // Display the JSON string in the output area
 
   return (
     <div className="landing-container">
