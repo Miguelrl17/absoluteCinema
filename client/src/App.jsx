@@ -21,7 +21,33 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setOutput(`Age: ${formData.age}, Genre: ${formData.genre}, Rating: ${formData.rating}, Triggers: ${formData.triggers}`);
+
+    // Process the trigger list into an array
+    const triggerList = formData.triggers.split(',').map(trigger => trigger.trim());
+
+    const dataToSave = {
+      age: formData.age,
+      genre: formData.genre,
+      rating: formData.rating,
+      trigger_list: triggerList,
+    };
+
+    // Convert to JSON string
+    const jsonString = JSON.stringify(dataToSave, null, 2);
+
+    // Create a Blob with the JSON data
+    const blob = new Blob([jsonString], { type: 'application/json' });
+
+    // Create a download link
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'preferences.json'; // This will be the filename
+    a.click();
+    URL.revokeObjectURL(url);
+
+    // Optional: Set formatted output on the page
+    setOutput(jsonString);
   };
 
   return (

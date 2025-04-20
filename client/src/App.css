@@ -47,7 +47,6 @@ body {
 
 .movie-section {
   padding: 2rem;
-  background-color: #2c2c2c; /* Slightly lighter gray for contrast */
   border-radius: 8px;
   border-left: 4px solid #ffd700; /* Gold accent */
   max-width: 100%; /* Prevent overflow */
@@ -87,15 +86,10 @@ body {
 }
 
 .movie-list .movie-item {
-  background-color: #1a1a1a; /* Match the background */
-  border: 1px solid #b22222; /* Deep red border */
-  border-radius: 8px;
-  padding: 1rem;
   color: #f5f5f5;
   flex: 1 1 calc(33.333% - 1rem);
   max-width: 300px; /* Restrict the width of each movie item */
   text-align: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .movie-list .movie-item h3 {
