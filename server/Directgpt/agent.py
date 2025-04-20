@@ -9,13 +9,14 @@ load_dotenv()
 GEMINI = os.getenv("GEMINI_API_KEY")
 client = genai.Client(api_key= GEMINI)
 global reccPrompt
+import json
 
-
-with open(r"/home/zepol/projects/CitrusHack2025/absoluteCinema/server/Directgpt/reccPrompt.txt", "r") as file:
+with open(r"C:\Users\migue\OneDrive\Desktop\absoluteCinema\server\Directgpt\reccPrompt.txt", "r") as file:
     prompt = file.read()
 
 
 def getReccs(json):
+    print(prompt)
     response = client.models.generate_content(
         model="gemini-2.0-flash", contents= f"{prompt} {json}")
     return response.text
