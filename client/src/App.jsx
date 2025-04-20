@@ -33,7 +33,6 @@ function App() {
     };
 
     try {
-      // Changed to POST request since we're sending data
       const response = await fetch('http://127.0.0.1:5000/movieRecs', {
         method: 'POST',
         headers: {
@@ -48,10 +47,9 @@ function App() {
       const result = await response.json();
       console.log('Server response:', result);
       
-      // Display the response in the output area
+    
       setOutput(JSON.stringify(result, null, 2));
   
-      // Optional: Download response as JSON
       const blob = new Blob([JSON.stringify(result, null, 2)], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');

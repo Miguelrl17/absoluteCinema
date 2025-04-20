@@ -1,5 +1,5 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif,Limelight, Futura, Helvetica;
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif, Limelight, Futura, Helvetica;
   line-height: 1.5;
   font-weight: 400;
 
@@ -33,6 +33,14 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+}
+
+.title {
+  position: relative;
+  z-index: 1;
+  font-size: 4em;
+  font-family: 'Limelight', 'Futura', sans-serif;
+  color: white;
 }
 
 button {
